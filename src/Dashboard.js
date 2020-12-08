@@ -19,7 +19,6 @@ class Dashboard extends React.Component{
 		fetch("https://jsonplaceholder.typicode.com/users")
 			.then(res => res.json())
 			.then(res => {
-				console.log(res);
 				this.setState({
 					persons: res,
 					isLoaded: true
@@ -34,14 +33,6 @@ class Dashboard extends React.Component{
 			})
 	}
 
-	handleClickPost(user_number){
-		console.log(user_number);
-		
-	}
-	handleClickBtnPost(idx){
-		console.log("on click button",idx);
-	}
-
 	render(){
 		const {persons,error,isLoaded} = this.state;
 
@@ -51,11 +42,11 @@ class Dashboard extends React.Component{
 			return <div>{error.message}</div>
 		} else if(persons){
 			return (
-					<div className="root">
-						{this.state.persons.map((person, idx) => (
-							<User person_info={person} onClick={(idx) => this.handleClickBtnPost(idx)}/>
-						))} 
-					</div>
+				<div className="root">
+					{this.state.persons.map((person, idx) => (
+						<User key={person.id} person_info={person}/>
+					))} 
+				</div>
 			)
 			
 		}
