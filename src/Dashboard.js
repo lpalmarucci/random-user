@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './Dashboard.css';
-import {Button, Card, CardActions, CardContent, Typography} from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {Link} from 'react-router-dom';
-
+import User from './components/User'
 
 
 
@@ -41,6 +38,9 @@ class Dashboard extends React.Component{
 		console.log(user_number);
 		
 	}
+	handleClickBtnPost(idx){
+		console.log("on click button",idx);
+	}
 
 	render(){
 		const {persons,error,isLoaded} = this.state;
@@ -53,26 +53,7 @@ class Dashboard extends React.Component{
 			return (
 					<div className="root">
 						{this.state.persons.map((person, idx) => (
-							<Card key={person.id} className="card">
-								<CardContent>
-									<div>
-										<b>Name: </b>{person.name} <br/>
-										<b>Username: </b>{person.username}<br/>
-										<b>Address: </b>{person.address.suite} {person.address.street} {person.address.city} {person.address.zipcode}<br/>
-										<b>Company: </b>{person.company.bs} {person.company.name} {person.company.catchPhrase}<br/>
-									</div>
-									
-								</CardContent>
-								<CardActions>
-									<Button 
-										component={Link}
-										size="medium" 
-										variant="contained" 
-										color="primary"
-										to={'/posts/'+ parseInt(idx)}
-									>Vedi post</Button>
-								</CardActions>
-							</Card>
+							<User person_info={person} onClick={(idx) => this.handleClickBtnPost(idx)}/>
 						))} 
 					</div>
 			)
